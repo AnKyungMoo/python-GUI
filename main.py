@@ -32,11 +32,8 @@ radioVar.set(99)
 # 2중 loop를 이용하여 라디오 버튼 생성
 for ro in range(2):
     for col in range(3):
-        # 배열의 index를 관리해주기 위한 if 문
-        if ro == 0:
-            index = col + ro
-        elif ro == 1:
-            index = (col+1) + (ro+1)
+        #2차원 배열의 index를 계산
+        index = ro + (col + (ro * 2))
 
         # 라디오 버튼 생성
         currentRadioButton = tk.Radiobutton(win, text=snacks[index], variable=radioVar, value=index)
