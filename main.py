@@ -1,11 +1,24 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import Menu
 
 # window instance 생성
 win = tk.Tk()
 
 # 타이틀 설정
 win.title("과자 자판기")
+
+# 메뉴를 window에 적용
+menu_bar = Menu(win)
+win.config(menu=menu_bar)
+
+# 기본 메뉴 생성
+basic_menu = Menu(menu_bar, tearoff=0)
+basic_menu.add_command(label='메뉴 추가 요청')
+basic_menu.add_command(label='메뉴 삭제 요청')
+basic_menu.add_separator()
+basic_menu.add_command(label='관리자 전화번호')
+menu_bar.add_cascade(label='메뉴', menu=basic_menu)
 
 # window instance 대신에 사용할 mighfy Frame 생성
 mighfy = ttk.LabelFrame(win, text='자판기')
