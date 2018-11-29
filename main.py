@@ -20,6 +20,12 @@ basic_menu.add_separator()
 basic_menu.add_command(label='관리자 전화번호')
 menu_bar.add_cascade(label='메뉴', menu=basic_menu)
 
+# 사용자 메뉴 생성
+user_menu = Menu(menu_bar, tearoff=0)
+user_menu.add_command(label='잔고 확인')
+user_menu.add_command(label='가지고 있는 과자 확인')
+menu_bar.add_cascade(label='사용자', menu=user_menu)
+
 # window instance 대신에 사용할 mighfy Frame 생성
 mighfy = ttk.LabelFrame(win, text='자판기')
 mighfy.grid(column=0, row=0)
