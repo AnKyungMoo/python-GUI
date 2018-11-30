@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import Menu
+from tkinter import messagebox as msg
 
 # window instance 생성
 win = tk.Tk()
@@ -8,7 +9,9 @@ win = tk.Tk()
 # 타이틀 설정
 win.title("과자 자판기")
 
-# 메뉴를 window에 적용
+snackList = []
+
+# 메뉴를 winow에 적용
 menu_bar = Menu(win)
 win.config(menu=menu_bar)
 
@@ -20,10 +23,22 @@ basic_menu.add_separator()
 basic_menu.add_command(label='관리자 전화번호')
 menu_bar.add_cascade(label='메뉴', menu=basic_menu)
 
+# 잔고 확인 함수
+def moneyCheck():
+    msg.showwarning('현재 잔고 확인', '현재 잔고는 [0]원 입니다.')
+
+# 가지고 있는 과자 확인 함수
+def ownSnack():
+    tempString = ''
+    for i in range(len(snackList)):
+        tempString += (snackList[i] + '과자\n')
+
+    msg.showinfo('가지고 있는 과자 확인', tempString)
+
 # 사용자 메뉴 생성
 user_menu = Menu(menu_bar, tearoff=0)
-user_menu.add_command(label='잔고 확인')
-user_menu.add_command(label='가지고 있는 과자 확인')
+user_menu.add_command(label='잔고 확인', command=moneyCheck)
+user_menu.add_command(label='가지고 있는 과자 확인', command=ownSnack)
 menu_bar.add_cascade(label='사용자', menu=user_menu)
 
 # window instance 대신에 사용할 mighfy Frame 생성
@@ -36,6 +51,7 @@ snacks = ['새우', '감자', '오징어', '버터', '딸기', '오렌지']
 ## 구매버튼을 클릭했을 때 동작을 구성한 콜백 함수
 def purchase():
     index = radioVar.get()
+    snackList.append(snacks[index])
 
     messageLabel.configure(text=snacks[index] + ' 과자를 샀다!')
     
