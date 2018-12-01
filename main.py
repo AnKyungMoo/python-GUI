@@ -4,6 +4,7 @@ from tkinter import Menu
 from tkinter import messagebox as msg
 import matplotlib.pyplot as plt
 from PIL import ImageTk, Image
+import strings
 
 class ToolTip(object):
     def __init__(self, widget):
@@ -55,6 +56,9 @@ class OOP():
 
         self.create_widgets()
 
+    def check_number(self):
+        msg.showinfo('전화번호', strings.number)
+
     ## 구매버튼을 클릭했을 때 동작을 구성한 콜백 함수
     def purchase(self):
         index = self.radioVar.get()
@@ -69,10 +73,6 @@ class OOP():
         else:
             msg.showwarning('SOLD OUT!!', self.snacks[index] + '는 매진입니다.')
 
-
-    # 잔고 확인 함수
-    def moneyCheck(self):
-        msg.showwarning('현재 잔고 확인', '현재 잔고는 [0]원 입니다.')
 
     # 가지고 있는 과자 확인 함수
     def ownSnack(self):
@@ -106,12 +106,11 @@ class OOP():
         basic_menu.add_command(label='메뉴 추가 요청')
         basic_menu.add_command(label='메뉴 삭제 요청')
         basic_menu.add_separator()
-        basic_menu.add_command(label='관리자 전화번호')
+        basic_menu.add_command(label='관리자 전화번호', command=self.check_number)
         menu_bar.add_cascade(label='메뉴', menu=basic_menu)
 
         # 사용자 메뉴 생성
         user_menu = Menu(menu_bar, tearoff=0)
-        user_menu.add_command(label='잔고 확인', command=self.moneyCheck)
         user_menu.add_command(label='가지고 있는 과자 확인', command=self.ownSnack)
         menu_bar.add_cascade(label='사용자', menu=user_menu)
 
@@ -159,7 +158,7 @@ class OOP():
         for child in mighfy.winfo_children():
             child.grid_configure(sticky='E')
 
-# oop 인스턴스 생성        
+# oop 인스턴스 생성
 oop = OOP()
 # 메인 루프 시작
 oop.win.mainloop()
