@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import Menu
 from tkinter import messagebox as msg
 import matplotlib.pyplot as plt
+from PIL import ImageTk, Image
 
 class ToolTip(object):
     def __init__(self, widget):
@@ -127,14 +128,19 @@ class OOP():
         self.radioVar.set(99)
 
         # 2중 loop를 이용하여 라디오 버튼 생성
-        for ro in range(2):
+        for ro in range(0, 3, 2):
             for col in range(3):
                 #2차원 배열의 index를 계산
-                index = ro + (col + (ro * 2))
+                index = int(ro + (col + (ro / 2)))
+
+                img = ImageTk.PhotoImage(Image.open(self.snacks[index]+'.png'))
+                aa = tk.Label(mighfy, image=img)
+                aa.image = img
+                aa.grid(column=col, row=ro)
 
                 # 라디오 버튼 생성
                 currentRadioButton = tk.Radiobutton(mighfy, text=self.snacks[index], variable=self.radioVar, value=index)
-                currentRadioButton.grid(column=col, row=ro, sticky=tk.W)
+                currentRadioButton.grid(column=col, row=ro+1, sticky=tk.W)
                 
                 create_ToolTip(currentRadioButton, self.snacks[index] + '과자입니다.')
 
