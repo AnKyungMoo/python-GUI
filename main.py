@@ -58,10 +58,17 @@ class OOP():
     ## 구매버튼을 클릭했을 때 동작을 구성한 콜백 함수
     def purchase(self):
         index = self.radioVar.get()
-        self.snackList.append(self.snacks[index])
-        self.own_snacks[self.snacks[index]] += 1
 
-        self.messageLabel.configure(text=self.snacks[index] + ' 과자를 샀다!')
+        if self.remain_snacks[self.snacks[index]] > 0:
+            self.snackList.append(self.snacks[index])
+            self.own_snacks[self.snacks[index]] += 1
+            self.remain_snacks[self.snacks[index]] -= 1
+
+            self.messageLabel.configure(text=self.snacks[index] + ' 과자를 샀다!')
+            self.radiobuttons[index].configure(text=self.snacks[index] + ' x' + str(self.remain_snacks[self.snacks[index]]))
+        else:
+            msg.showwarning('SOLD OUT!!', self.snacks[index] + '는 매진입니다.')
+
 
     # 잔고 확인 함수
     def moneyCheck(self):
@@ -85,7 +92,10 @@ class OOP():
     def create_widgets(self):
         self.snackList = []
         self.snacks = ['Shrimp', 'Potato', 'Squid', 'Butter', 'Strawberry', 'Orange']
-        self.own_snacks = {self.snacks[0]:0, self.snacks[1]:0, self.snacks[2]:0, self.snacks[3]:0, self.snacks[4]:0, self.snacks[5]:0}    
+        self.remain_snacks = {self.snacks[0]:3, self.snacks[1]:3, self.snacks[2]:3, self.snacks[3]:3, self.snacks[4]:3, self.snacks[5]:3}
+        self.own_snacks = {self.snacks[0]:0, self.snacks[1]:0, self.snacks[2]:0, self.snacks[3]:0, self.snacks[4]:0, self.snacks[5]:0}
+
+        self.radiobuttons = []
 
         # 메뉴를 winow에 적용
         menu_bar = Menu(self.win)
@@ -139,15 +149,16 @@ class OOP():
                 aa.grid(column=col, row=ro)
 
                 # 라디오 버튼 생성
-                currentRadioButton = tk.Radiobutton(mighfy, text=self.snacks[index], variable=self.radioVar, value=index)
-                currentRadioButton.grid(column=col, row=ro+1, sticky=tk.W)
-                
-                create_ToolTip(currentRadioButton, self.snacks[index] + '과자입니다.')
+                current_radio_button = tk.Radiobutton(mighfy, text=self.snacks[index] + ' x' + str(self.remain_snacks[self.snacks[index]]), variable=self.radioVar, value=index)
+                self.radiobuttons.append(current_radio_button)
+                self.radiobuttons[index].grid(column=col, row=ro+1, sticky=tk.W)
+
+                create_ToolTip(self.radiobuttons[index], self.snacks[index] + '과자입니다.')
 
         # for loop를 이용하여 컴포넌트들을 모두 정렬
         for child in mighfy.winfo_children():
             child.grid_configure(sticky='E')
-        
+
 # oop 인스턴스 생성        
 oop = OOP()
 # 메인 루프 시작
