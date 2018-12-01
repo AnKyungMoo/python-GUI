@@ -83,6 +83,8 @@ class OOP():
 
     def create_widgets(self):
         self.snackList = []
+        self.snacks = ['Shrimp', 'Potato', 'Squid', 'Butter', 'Strawberry', 'Orange']
+        self.snack_map = {self.snacks[0]:0, self.snacks[1]:0, self.snacks[2]:0, self.snacks[3]:0, self.snacks[4]:0, self.snacks[5]:0}    
 
         # 메뉴를 winow에 적용
         menu_bar = Menu(self.win)
@@ -110,12 +112,6 @@ class OOP():
         # window instance 대신에 사용할 mighfy Frame 생성
         mighfy = ttk.LabelFrame(self.win, text='자판기')
         mighfy.grid(column=0, row=0)
-
-        ## 과자의 종류를 담는 배열
-        self.snacks = ['Shrimp', 'Potato', 'Squid', 'Butter', 'Strawberry', 'Orange']
-
-        # 과자를 몇개 구매했는지 확인하기 위한 dictionary
-        self.snack_map = {self.snacks[0]:0, self.snacks[1]:0, self.snacks[2]:0, self.snacks[3]:0, self.snacks[4]:0, self.snacks[5]:0}    
 
         # 무엇을 구매했는지를 알려주기 위한 Label
         self.messageLabel = ttk.Label(mighfy, text="Click the Purchase!")
