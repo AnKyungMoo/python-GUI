@@ -59,7 +59,7 @@ class OOP():
     def purchase(self):
         index = self.radioVar.get()
         self.snackList.append(self.snacks[index])
-        self.snack_map[self.snacks[index]] += 1
+        self.own_snacks[self.snacks[index]] += 1
 
         self.messageLabel.configure(text=self.snacks[index] + ' 과자를 샀다!')
 
@@ -78,14 +78,14 @@ class OOP():
     # 과자의 구매 동향 확인하는 차트
     def show_chart(self):
         x = self.snacks
-        y = [self.snack_map[self.snacks[0]], self.snack_map[self.snacks[1]], self.snack_map[self.snacks[2]], self.snack_map[self.snacks[3]], self.snack_map[self.snacks[4]], self.snack_map[self.snacks[5]]]
+        y = [self.own_snacks[self.snacks[0]], self.own_snacks[self.snacks[1]], self.own_snacks[self.snacks[2]], self.own_snacks[self.snacks[3]], self.own_snacks[self.snacks[4]], self.own_snacks[self.snacks[5]]]
         plt.bar(x, y, width=0.7)
         plt.show()
 
     def create_widgets(self):
         self.snackList = []
         self.snacks = ['Shrimp', 'Potato', 'Squid', 'Butter', 'Strawberry', 'Orange']
-        self.snack_map = {self.snacks[0]:0, self.snacks[1]:0, self.snacks[2]:0, self.snacks[3]:0, self.snacks[4]:0, self.snacks[5]:0}    
+        self.own_snacks = {self.snacks[0]:0, self.snacks[1]:0, self.snacks[2]:0, self.snacks[3]:0, self.snacks[4]:0, self.snacks[5]:0}    
 
         # 메뉴를 winow에 적용
         menu_bar = Menu(self.win)
@@ -116,11 +116,11 @@ class OOP():
 
         # 무엇을 구매했는지를 알려주기 위한 Label
         self.messageLabel = ttk.Label(mighfy, text="Click the Purchase!")
-        self.messageLabel.grid(column=0, row=3)
+        self.messageLabel.grid(column=0, row=4)
 
         # 구매 버튼 생성
         purchaseButton = ttk.Button(mighfy, text="Purchase!", command=self.purchase)
-        purchaseButton.grid(column=3, row=3)
+        purchaseButton.grid(column=3, row=4)
 
         # 라디오 버튼에 바인딩할 정수타입의 변수
         self.radioVar = tk.IntVar()
