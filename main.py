@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import Menu
 from tkinter import messagebox as msg
+import matplotlib.pyplot as plt
 
 class ToolTip(object):
     def __init__(self, widget):
@@ -57,6 +58,7 @@ class OOP():
     def purchase(self):
         index = self.radioVar.get()
         self.snackList.append(self.snacks[index])
+        self.snack_map[self.snacks[index]] += 1
 
         self.messageLabel.configure(text=self.snacks[index] + ' 과자를 샀다!')
 
@@ -71,6 +73,13 @@ class OOP():
             tempString += (self.snackList[i] + '과자\n')
 
         msg.showinfo('가지고 있는 과자 확인', tempString)
+
+    # 과자의 구매 동향 확인하는 차트
+    def show_chart(self):
+        x = self.snacks
+        y = [self.snack_map[self.snacks[0]], self.snack_map[self.snacks[1]], self.snack_map[self.snacks[2]], self.snack_map[self.snacks[3]], self.snack_map[self.snacks[4]], self.snack_map[self.snacks[5]]]
+        plt.bar(x, y, width=0.7)
+        plt.show()
 
     def create_widgets(self):
         self.snackList = []
@@ -93,13 +102,21 @@ class OOP():
         user_menu.add_command(label='가지고 있는 과자 확인', command=self.ownSnack)
         menu_bar.add_cascade(label='사용자', menu=user_menu)
 
+        # 통계 메뉴 생성
+        statistics_menu = Menu(menu_bar, tearoff=0)
+        statistics_menu.add_command(label='구매 차트 보기', command=self.show_chart)
+        menu_bar.add_cascade(label='통계', menu=statistics_menu)
+
         # window instance 대신에 사용할 mighfy Frame 생성
         mighfy = ttk.LabelFrame(self.win, text='자판기')
         mighfy.grid(column=0, row=0)
 
         ## 과자의 종류를 담는 배열
-        self.snacks = ['새우', '감자', '오징어', '버터', '딸기', '오렌지']
-            
+        self.snacks = ['Shrimp', 'Potato', 'Squid', 'Butter', 'Strawberry', 'Orange']
+
+        # 과자를 몇개 구매했는지 확인하기 위한 dictionary
+        self.snack_map = {self.snacks[0]:0, self.snacks[1]:0, self.snacks[2]:0, self.snacks[3]:0, self.snacks[4]:0, self.snacks[5]:0}    
+
         # 무엇을 구매했는지를 알려주기 위한 Label
         self.messageLabel = ttk.Label(mighfy, text="Click the Purchase!")
         self.messageLabel.grid(column=0, row=3)
