@@ -43,88 +43,94 @@ def create_ToolTip(widget, text):
     widget.bind('<Enter>', enter)
     widget.bind('<Leave>', leave)
 
-# window instance 생성
-win = tk.Tk()
+class OOP():
+    def __init__(self):
+        # window instance 생성
+        self.win = tk.Tk()
 
-# 타이틀 설정
-win.title("과자 자판기")
+        # 타이틀 설정
+        self.win.title("과자 자판기")
 
-snackList = []
+        self.create_widgets()
 
-# 메뉴를 winow에 적용
-menu_bar = Menu(win)
-win.config(menu=menu_bar)
+    ## 구매버튼을 클릭했을 때 동작을 구성한 콜백 함수
+    def purchase(self):
+        index = self.radioVar.get()
+        self.snackList.append(self.snacks[index])
 
-# 기본 메뉴 생성
-basic_menu = Menu(menu_bar, tearoff=0)
-basic_menu.add_command(label='메뉴 추가 요청')
-basic_menu.add_command(label='메뉴 삭제 요청')
-basic_menu.add_separator()
-basic_menu.add_command(label='관리자 전화번호')
-menu_bar.add_cascade(label='메뉴', menu=basic_menu)
+        self.messageLabel.configure(text=self.snacks[index] + ' 과자를 샀다!')
 
-# 잔고 확인 함수
-def moneyCheck():
-    msg.showwarning('현재 잔고 확인', '현재 잔고는 [0]원 입니다.')
+    # 잔고 확인 함수
+    def moneyCheck(self):
+        msg.showwarning('현재 잔고 확인', '현재 잔고는 [0]원 입니다.')
 
-# 가지고 있는 과자 확인 함수
-def ownSnack():
-    tempString = ''
-    for i in range(len(snackList)):
-        tempString += (snackList[i] + '과자\n')
+    # 가지고 있는 과자 확인 함수
+    def ownSnack(self):
+        tempString = ''
+        for i in range(len(self.snackList)):
+            tempString += (self.snackList[i] + '과자\n')
 
-    msg.showinfo('가지고 있는 과자 확인', tempString)
+        msg.showinfo('가지고 있는 과자 확인', tempString)
 
-# 사용자 메뉴 생성
-user_menu = Menu(menu_bar, tearoff=0)
-user_menu.add_command(label='잔고 확인', command=moneyCheck)
-user_menu.add_command(label='가지고 있는 과자 확인', command=ownSnack)
-menu_bar.add_cascade(label='사용자', menu=user_menu)
+    def create_widgets(self):
+        self.snackList = []
 
-# window instance 대신에 사용할 mighfy Frame 생성
-mighfy = ttk.LabelFrame(win, text='자판기')
-mighfy.grid(column=0, row=0)
+        # 메뉴를 winow에 적용
+        menu_bar = Menu(self.win)
+        self.win.config(menu=menu_bar)
 
-## 과자의 종류를 담는 배열
-snacks = ['새우', '감자', '오징어', '버터', '딸기', '오렌지']
+        # 기본 메뉴 생성
+        basic_menu = Menu(menu_bar, tearoff=0)
+        basic_menu.add_command(label='메뉴 추가 요청')
+        basic_menu.add_command(label='메뉴 삭제 요청')
+        basic_menu.add_separator()
+        basic_menu.add_command(label='관리자 전화번호')
+        menu_bar.add_cascade(label='메뉴', menu=basic_menu)
 
-## 구매버튼을 클릭했을 때 동작을 구성한 콜백 함수
-def purchase():
-    index = radioVar.get()
-    snackList.append(snacks[index])
+        # 사용자 메뉴 생성
+        user_menu = Menu(menu_bar, tearoff=0)
+        user_menu.add_command(label='잔고 확인', command=self.moneyCheck)
+        user_menu.add_command(label='가지고 있는 과자 확인', command=self.ownSnack)
+        menu_bar.add_cascade(label='사용자', menu=user_menu)
 
-    messageLabel.configure(text=snacks[index] + ' 과자를 샀다!')
-    
-# 무엇을 구매했는지를 알려주기 위한 Label
-messageLabel = ttk.Label(mighfy, text="Click the Purchase!")
-messageLabel.grid(column=0, row=3)
+        # window instance 대신에 사용할 mighfy Frame 생성
+        mighfy = ttk.LabelFrame(self.win, text='자판기')
+        mighfy.grid(column=0, row=0)
 
-# 구매 버튼 생성
-purchaseButton = ttk.Button(mighfy, text="Purchase!", command=purchase)
-purchaseButton.grid(column=3, row=3)
+        ## 과자의 종류를 담는 배열
+        self.snacks = ['새우', '감자', '오징어', '버터', '딸기', '오렌지']
+            
+        # 무엇을 구매했는지를 알려주기 위한 Label
+        self.messageLabel = ttk.Label(mighfy, text="Click the Purchase!")
+        self.messageLabel.grid(column=0, row=3)
 
-# 라디오 버튼에 바인딩할 정수타입의 변수
-radioVar = tk.IntVar()
+        # 구매 버튼 생성
+        purchaseButton = ttk.Button(mighfy, text="Purchase!", command=self.purchase)
+        purchaseButton.grid(column=3, row=3)
 
-radioVar.set(99)
+        # 라디오 버튼에 바인딩할 정수타입의 변수
+        self.radioVar = tk.IntVar()
 
-# 2중 loop를 이용하여 라디오 버튼 생성
-for ro in range(2):
-    for col in range(3):
-        #2차원 배열의 index를 계산
-        index = ro + (col + (ro * 2))
+        self.radioVar.set(99)
 
-        # 라디오 버튼 생성
-        currentRadioButton = tk.Radiobutton(mighfy, text=snacks[index], variable=radioVar, value=index)
-        currentRadioButton.grid(column=col, row=ro, sticky=tk.W)
+        # 2중 loop를 이용하여 라디오 버튼 생성
+        for ro in range(2):
+            for col in range(3):
+                #2차원 배열의 index를 계산
+                index = ro + (col + (ro * 2))
+
+                # 라디오 버튼 생성
+                currentRadioButton = tk.Radiobutton(mighfy, text=self.snacks[index], variable=self.radioVar, value=index)
+                currentRadioButton.grid(column=col, row=ro, sticky=tk.W)
+                
+                create_ToolTip(currentRadioButton, self.snacks[index] + '과자입니다.')
+
+        # for loop를 이용하여 컴포넌트들을 모두 정렬
+        for child in mighfy.winfo_children():
+            child.grid_configure(sticky='E')
         
-        create_ToolTip(currentRadioButton, snacks[index] + '과자입니다.')
-
-# for loop를 이용하여 컴포넌트들을 모두 정렬
-for child in mighfy.winfo_children():
-    child.grid_configure(sticky='E')
-    
-
+# oop 인스턴스 생성        
+oop = OOP()
 # 메인 루프 시작
-win.mainloop()
+oop.win.mainloop()
 
