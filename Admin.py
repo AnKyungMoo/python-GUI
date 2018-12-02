@@ -17,6 +17,15 @@ class Admin:
         # 위젯 생성
         self.create_widgets()
 
+    def click_refill(self):
+        for ro in range(2):
+            for col in range(3):
+                index = ro + (col + (ro * 2))
+
+                if self.check_button_var[index].get() == 1:
+                    # TODO: 서버로 보내자
+                    print(self.snacks[index] + ' refill')
+
     def create_widgets(self):
         tab_control = ttk.Notebook(self.win)
 
@@ -35,13 +44,15 @@ class Admin:
         for ro in range(2):
             for col in range(3):
                 index = ro + (col + (ro * 2))
+
                 self.check_button_var.append(tk.IntVar())
 
                 check_button = tk.Checkbutton(refill_tab, text=self.snacks[index], variable=self.check_button_var[index])
                 check_button.grid(column=col, row=ro, sticky=tk.W)
 
-        refill_button = ttk.Button(refill_tab, text='refill!')
+        refill_button = ttk.Button(refill_tab, text='refill!', command=self.click_refill)
         refill_button.grid(column=2, row=2)
+
 
 admin = Admin()
 admin.win.mainloop()
