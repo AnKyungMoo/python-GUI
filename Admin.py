@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import ttk
+from PIL import ImageTk, Image
 
 
 class Admin:
@@ -37,21 +38,27 @@ class Admin:
 
         tab_control.pack(expand=1, fill='both')
 
-        scrolled_text = scrolledtext.ScrolledText(console_tab, width=80, height=30, wrap=tk.WORD)
+        scrolled_text = scrolledtext.ScrolledText(console_tab, width=75, height=37, wrap=tk.WORD)
         scrolled_text.grid(column=0, row=0)
 
         # 체크박스 생성
-        for ro in range(2):
+        for ro in range(0, 3, 2):
             for col in range(3):
-                index = ro + (col + (ro * 2))
+                index = int(ro + (col + (ro / 2)))
+
+                # 이미지 display
+                img = ImageTk.PhotoImage(Image.open(self.snacks[index] + '.png'))
+                aa = tk.Label(refill_tab, image=img)
+                aa.image = img
+                aa.grid(column=col, row=ro, sticky=tk.W)
 
                 self.check_button_var.append(tk.IntVar())
 
                 check_button = tk.Checkbutton(refill_tab, text=self.snacks[index], variable=self.check_button_var[index])
-                check_button.grid(column=col, row=ro, sticky=tk.W)
+                check_button.grid(column=col, row=ro+1, sticky=tk.E)
 
         refill_button = ttk.Button(refill_tab, text='refill!', command=self.click_refill)
-        refill_button.grid(column=2, row=2)
+        refill_button.grid(column=3, row=4, sticky=tk.E)
 
 
 admin = Admin()
