@@ -129,7 +129,7 @@ class OOP():
 
         # 구매 버튼 생성
         purchaseButton = ttk.Button(mighfy, text="Purchase!", command=self.purchase)
-        purchaseButton.grid(column=3, row=4)
+        purchaseButton.grid(column=2, row=4)
 
         # 라디오 버튼에 바인딩할 정수타입의 변수
         self.radioVar = tk.IntVar()
