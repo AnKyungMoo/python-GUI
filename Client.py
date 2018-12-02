@@ -50,7 +50,7 @@ def create_ToolTip(widget, text):
     widget.bind('<Leave>', leave)
 
 
-class OOP():
+class Client:
     def __init__(self):
         # window instance 생성
         self.win = tk.Tk()
@@ -172,6 +172,6 @@ class OOP():
 
 
 # oop 인스턴스 생성
-oop = OOP()
+client = Client()
 # 메인 루프 시작
-oop.win.mainloop()
+client.win.mainloop()
