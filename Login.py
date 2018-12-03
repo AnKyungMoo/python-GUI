@@ -40,7 +40,7 @@ class Login:
 
         ttk.Label(self.win, text='password').grid(column=0, row=2)
         self.password = tk.StringVar()
-        password_entry = ttk.Entry(self.win, width=20, textvariable=self.password)
+        password_entry = ttk.Entry(self.win, show='*', width=20, textvariable=self.password)
         password_entry.grid(column=1, row=2)
 
         login_button = ttk.Button(self.win, text="Login", command=self.click_login)
