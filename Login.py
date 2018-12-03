@@ -32,7 +32,7 @@ class Login:
 
         params = {'id':uid, 'pw':upw}
 
-        response = requests.get(url=strings.url + '/join', data = params).json()
+        response = requests.get(url=strings.url + '/join', data=params).json()
 
         if (response['success']):
             msg.showinfo('성공', '회원가입되었습니다.');

@@ -5,6 +5,7 @@ from tkinter import messagebox as msg
 import matplotlib.pyplot as plt
 from PIL import ImageTk, Image
 import strings
+import requests
 
 
 class ToolTip(object):
@@ -69,7 +70,19 @@ class Client:
         self.radio_buttons = []
         self.radio_var = tk.IntVar()
 
+        # 스낵 갯수 리프레시
+        self.refresh()
+        
+        # 위젯 생성
         self.create_widgets()
+
+    def refresh(self):
+        response = requests.get(url=strings.url + '/fresh').json()
+
+        for i in range(6):
+            index = response['data'][i]['id']-1
+            self.remain_snacks[self.snacks[index]] = response['data'][i]['cnt']
+
 
     # 관리자 전화번호 확인하는 콜백 함수
     def check_number(self):
@@ -84,9 +97,17 @@ class Client:
             self.own_snacks_dictionary[self.snacks[index]] += 1
             self.remain_snacks[self.snacks[index]] -= 1
 
-            self.message_label.configure(text=self.snacks[index] + ' 과자를 샀다!')
-            self.radio_buttons[index].configure(
-                text=self.snacks[index] + ' x' + str(self.remain_snacks[self.snacks[index]]))
+            params = {'sid': index+1}
+
+            response = requests.get(url=strings.url + '/order', data=params).json()
+
+            if response['success']:
+                self.message_label.configure(text=self.snacks[index] + ' 과자를 샀다!')
+                self.radio_buttons[index].configure(
+                    text=self.snacks[index] + ' x' + str(response['cnt']))
+            else:
+                self.message_label.configure(text=self.snacks[index] + ' 과자를 못샀다!')
+                self.radio_buttons[index].configure(text=self.snacks[index] + ' x0')
         else:
             msg.showwarning('SOLD OUT!!', self.snacks[index] + '는 매진입니다.')
 

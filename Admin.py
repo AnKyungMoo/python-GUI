@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import ttk
 from PIL import ImageTk, Image
+import requests
+import strings
 
 
 class Admin:
@@ -26,6 +28,10 @@ class Admin:
 
                 if self.check_button_var[index].get() == 1:
                     # TODO: 서버로 보내자
+                    params = {'sid': index + 1}
+
+                    response = requests.get(url=strings.url + '/refill', data=params).json()
+                    print(response)
                     self.console.configure(state='normal')
                     self.console.insert(tk.INSERT, self.snacks[index] + ' refill\n')
                     self.console.configure(state='disabled')
