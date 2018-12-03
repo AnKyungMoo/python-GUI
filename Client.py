@@ -115,9 +115,6 @@ class Client:
 
         # 기본 메뉴 생성
         basic_menu = Menu(menu_bar, tearoff=0)
-        basic_menu.add_command(label='메뉴 추가 요청')
-        basic_menu.add_command(label='메뉴 삭제 요청')
-        basic_menu.add_separator()
         basic_menu.add_command(label='관리자 전화번호', command=self.check_number)
         menu_bar.add_cascade(label='메뉴', menu=basic_menu)
 
