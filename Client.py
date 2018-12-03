@@ -168,7 +168,8 @@ class Client:
             child.grid_configure(sticky='E')
 
 
-# oop 인스턴스 생성
-client = Client()
-# 메인 루프 시작
-client.win.mainloop()
+if __name__ == '__main__':
+    # oop 인스턴스 생성
+    client = Client()
+    # 메인 루프 시작
+    client.win.mainloop()

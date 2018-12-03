@@ -64,5 +64,6 @@ class Admin:
         refill_button.grid(column=3, row=4, sticky=tk.E)
 
 
-admin = Admin()
-admin.win.mainloop()
+if __name__ == '__main__':
+    admin = Admin()
+    admin.win.mainloop()
