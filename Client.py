@@ -56,7 +56,7 @@ class Client:
         self.win = tk.Tk()
 
         # 타이틀 설정
-        self.win.title("과자 자판기")
+        self.win.title("경무네 과자가게_손님")
 
         # 변수
         self.snackList = []

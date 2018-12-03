@@ -9,7 +9,7 @@ class Admin:
         self.win = tk.Tk()
 
         # 타이틀 설정
-        self.win.title("admin")
+        self.win.title("경무네 과자가게_관리자")
         self.win.resizable(False, False)
 
         # 변수
