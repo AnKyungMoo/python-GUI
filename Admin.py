@@ -25,7 +25,9 @@ class Admin:
 
                 if self.check_button_var[index].get() == 1:
                     # TODO: 서버로 보내자
-                    print(self.snacks[index] + ' refill')
+                    self.console.configure(state='normal')
+                    self.console.insert(tk.INSERT, self.snacks[index] + ' refill\n')
+                    self.console.configure(state='disabled')
 
     def create_widgets(self):
         tab_control = ttk.Notebook(self.win)
@@ -38,8 +40,8 @@ class Admin:
 
         tab_control.pack(expand=1, fill='both')
 
-        scrolled_text = scrolledtext.ScrolledText(console_tab, width=75, height=37, wrap=tk.WORD)
-        scrolled_text.grid(column=0, row=0)
+        self.console = scrolledtext.ScrolledText(console_tab, width=75, height=37, wrap=tk.WORD, state='disabled')
+        self.console.grid(column=0, row=0)
 
         # 체크박스 생성
         for ro in range(0, 3, 2):
