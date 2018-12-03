@@ -10,6 +10,7 @@ class Admin:
 
         # 타이틀 설정
         self.win.title("admin")
+        self.win.resizable(False, False)
 
         # 변수
         self.snacks = ['Shrimp', 'Potato', 'Squid', 'Butter', 'Strawberry', 'Orange']
