@@ -53,7 +53,7 @@ def create_ToolTip(widget, text):
 class Client:
     def __init__(self):
         # window instance 생성
-        self.win = tk.Tk()
+        self.win = tk.Toplevel()
 
         # 타이틀 설정
         self.win.title("경무네 과자가게_손님")

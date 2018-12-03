@@ -19,10 +19,8 @@ class Login:
         upw = self.password.get()
 
         if uid == 'admin' and upw == '1234':
-            # TODO: 이미지 로드 에러 수정
             Admin.Admin().win.mainloop()
         else:
-            # TODO: 이미지 로드 에러 수정
             Client.Client().win.mainloop()
 
     def click_sign_up(self):

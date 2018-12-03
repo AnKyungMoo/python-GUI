@@ -6,7 +6,7 @@ from PIL import ImageTk, Image
 
 class Admin:
     def __init__(self):
-        self.win = tk.Tk()
+        self.win = tk.Toplevel()
 
         # 타이틀 설정
         self.win.title("경무네 과자가게_관리자")
