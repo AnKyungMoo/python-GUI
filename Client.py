@@ -129,7 +129,6 @@ class Client:
         plt.show()
 
     def create_widgets(self):
-
         # 메뉴를 winow에 적용
         menu_bar = Menu(self.win)
         self.win.config(menu=menu_bar)

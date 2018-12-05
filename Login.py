@@ -35,9 +35,9 @@ class Login:
         response = requests.get(url=strings.url + '/join', data=params).json()
 
         if (response['success']):
-            msg.showinfo('성공', '회원가입되었습니다.');
+            msg.showinfo('성공', '회원가입되었습니다.')
         else:
-            msg.showwarning('실패', '회원가입에 실패하였습니다.');
+            msg.showwarning('실패', '회원가입에 실패하였습니다.')
 
     def create_widgets(self):
         ttk.Label(self.win, text='과자 가게 들어가기').grid(column=0, row=0, columnspan=3)
